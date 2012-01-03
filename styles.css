@@ -1,0 +1,90 @@
+body.jsenabled #calexport_options_submit {
+    display: none;
+}
+
+#calexport .calexportbox {
+    background-color: #f2f2f2;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -khtml-border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 0px;
+    margin-bottom: 1em;
+}
+#calexport .calexportbox h3 {
+    position: relative;
+    display: inline-block;
+    padding-right: .3em;
+}
+
+.ie7 #calexport .calexportbox h3 {
+    display: inline;
+}
+
+#calexport_options .inlinefield {
+    display: inline;
+    margin-right: 15px;
+}
+
+#calexport_options label {
+    margin-left: .5em;
+}
+#calexport_options label .helplink {
+    margin-left: .3em;
+}
+
+#calexport_options legend {
+    display: none;
+}
+
+#calexport_links p {
+    margin-top: 1em;
+}
+
+.calexport_link {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#calexport_links .calexport_link_icon {
+    float: left;
+    /*position: relative;*/
+    width: auto;
+    margin-right: 10px;
+}
+
+#calexport_links .calexport_link_icon a {
+    background-color: #000;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -khtml-border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: #fff;
+    position: relative;
+}
+#calexport_links .calexport_link_icon a span {
+    margin-left: 5px;
+}
+#calexport_links .calexport_link_icon img {
+    top: 3px;
+    position: relative;
+}
+#calexport_links .calexport_link_desc {
+    margin-right: 10px;
+}
+
+#ical_link img,#feed_link img {
+    width: 16px;
+    height: 16px;
+}
+
+#calexport_links input {
+    width: 80%;
+}
