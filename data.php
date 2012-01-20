@@ -65,6 +65,7 @@ $courses = array();
 $groups = false;
 $shortname = null;
 $userid = $user->id;
+$eventuserid = $user->id;
 
 //If a course id check user is on course and then get group info
 if ($courseid) {
@@ -90,14 +91,14 @@ if ($allevents == true) {
     $courses[SITEID] = new stdClass;
     $courses[SITEID]->shortname = get_string('globalevents', 'calendar');
 } else {
-    $userid = array();
+    $eventuserid = array();
 }
 
 //Events in the last 10 or next 60 days
 $timestart = time() - 864000;
 $timeend = time() + 5184000;
 
-$events = calendar_get_events($timestart, $timeend, $userid, $groups, array_keys($courses), false);
+$events = calendar_get_events($timestart, $timeend, $eventuserid, $groups, array_keys($courses), false);
 
 $ical = new iCalendar;
 $ical->add_property('method', 'PUBLISH');
