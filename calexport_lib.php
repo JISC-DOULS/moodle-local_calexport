@@ -32,7 +32,7 @@ class calexport_lib {
 
     private static $plugins;
 
-    public function get_plugin_config() {
+    public static function get_plugin_config() {
         if (!isset(self::$settings)) {
             self::$settings = get_config('local_calexport');
         }
@@ -247,7 +247,7 @@ abstract class calexport_plugin {
      * @param INT $courseid Id of course, 0 if none
      * @return string
      */
-    abstract public static function get_options($courseid);
+    public static function get_options($courseid) {}
 
     /**
      * Return array to be added to moodle_url params
@@ -255,7 +255,7 @@ abstract class calexport_plugin {
      * @param INT $courseid Id of course, 0 if none
      * @return array
      */
-    abstract public static function return_query_params($courseid);
+    public static function return_query_params($courseid) {}
 
     /**
      * Add your calendar items to the calendar object
@@ -267,5 +267,5 @@ abstract class calexport_plugin {
      * @param $groups array false if none
      * @param $courseid int
      */
-    abstract public static function add_to_ical(iCalendar &$ical, $timestart, $timeend, $userid, $groups, $courseid, $shortname);
+    public static function add_to_ical(iCalendar &$ical, $timestart, $timeend, $userid, $groups, $courseid, $shortname) {}
 }
