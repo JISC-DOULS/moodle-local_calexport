@@ -130,15 +130,18 @@ class calexport_plugin_activities extends calexport_plugin {
             return;
         }
         $course=$DB->get_record('course', array('id'=>$courseid), '*', MUST_EXIST);
-        $context = get_context_instance(CONTEXT_COURSE, $course->id);
+        $context = context_course::instance($course->id);
         if (!is_enrolled($context, $userid)) {
             return;
         }
-        if ($course->numsections < 1) {
+
+        $modinfo = get_fast_modinfo($course);
+        $courseformatoptions = course_get_format($course)->get_format_options();
+        $numsections = $courseformatoptions['numsections'];
+        $sections = $modinfo->get_section_info_all();
+        if ($numsections < 1) {
             return;
         }
-        $modinfo = get_fast_modinfo($course);
-        $sections = get_all_sections($course->id);
         $weeksettings = studyplan_get_weeksettings($course->id);
         $studyplan = studyplan_get_settings($course->id);
         $weekdate = $studyplan->startdateoffset + $course->startdate; // should be Monday of week
@@ -237,6 +240,7 @@ class calexport_plugin_activities extends calexport_plugin {
                 $created = $DB->get_field('course_modules', 'added', array('id'=>$cmid));
                 $url = $CFG->wwwroot . '/mod/' . $cm->modname . '/view.php?id=' . $cmid;
 
+                $bennu = new Bennu();
                 $ev = new iCalendar_event();
                 $ev->add_property('uid', $shortname . '-' . $cmid . '@' . $hostaddress);
                 $ev->add_property('summary', $cm->name);
@@ -250,12 +254,12 @@ class calexport_plugin_activities extends calexport_plugin {
                 }
                 $ev->add_property('description', $desc);
                 $ev->add_property('class', 'PUBLIC');
-                $ev->add_property('created', Bennu::timestamp_to_datetime($created));
-                $ev->add_property('dtstamp', Bennu::timestamp_to_datetime()); //now
-                $ev->add_property('dtstart', Bennu::timestamp_to_datetime($es->startdate));
-                $ev->add_property('dtend', Bennu::timestamp_to_datetime($es->enddate));
+                $ev->add_property('created', $bennu->timestamp_to_datetime($created));
+                $ev->add_property('dtstamp', $bennu->timestamp_to_datetime()); //now
+                $ev->add_property('dtstart', $bennu->timestamp_to_datetime($es->startdate));
+                $ev->add_property('dtend', $bennu->timestamp_to_datetime($es->enddate));
                 if (!empty($lastmodified)) {
-                    $ev->add_property('last-modified', Bennu::timestamp_to_datetime($lastmodified));
+                    $ev->add_property('last-modified', $bennu->timestamp_to_datetime($lastmodified));
                 }
                 $ev->add_property('url', $url);
                 $ical->add_component($ev);

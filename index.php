@@ -46,7 +46,7 @@ $PAGE->set_url($url);
 if ($courseid && $courseid != SITEID) {
     require_login($courseid);
 } else {
-    $PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
+    $PAGE->set_context(context_system::instance());
     require_login();
 }
 

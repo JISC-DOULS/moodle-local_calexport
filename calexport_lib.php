@@ -126,7 +126,9 @@ class calexport_lib {
 
         if (!empty($config->googlecal)) {
             //write add to google button
-            $googlink = $config->googlecal . '/render?cid=' . urlencode(htmlspecialchars_decode((string)$link));
+            // Google cal direct link import does not like https - ensure always http.
+            $glink = str_replace('https:', 'http:', $link);
+            $googlink = $config->googlecal . '/render?cid=' . urlencode(htmlspecialchars_decode((string)$glink));
             $output .= $renderer->get_export_button('google', 'google', get_string('googleicon', 'local_calexport'),
                 $googlink, get_string('googleicon_desc', 'local_calexport', $calname));
         }
@@ -151,6 +153,7 @@ class calexport_lib {
     public static function add_external_libs($incss = true) {
         global $PAGE;
         $link = new moodle_url('/local/calexport/data.php');
+        $link = str_replace('https:', 'http:', $link);
         if ($incss) {
             $PAGE->requires->css('/local/calexport/styles.css');
         }
@@ -181,17 +184,18 @@ class calexport_lib {
         if (!$hostaddress) {
             $hostaddress = self::return_host_address();
         }
+        $bennu = new Bennu();
         $ev = new iCalendar_event();
         $ev->add_property('uid', $event->id.'@'.$hostaddress);
         $ev->add_property('summary', $event->name);
         $ev->add_property('description', $event->description);
         $ev->add_property('class', 'PUBLIC'); // PUBLIC / PRIVATE / CONFIDENTIAL
-        $ev->add_property('last-modified', Bennu::timestamp_to_datetime($event->timemodified));
-        $ev->add_property('dtstamp', Bennu::timestamp_to_datetime()); // now
-        $ev->add_property('dtstart', Bennu::timestamp_to_datetime($event->timestart)); // when event starts
+        $ev->add_property('last-modified', $bennu->timestamp_to_datetime($event->timemodified));
+        $ev->add_property('dtstamp', $bennu->timestamp_to_datetime()); // now
+        $ev->add_property('dtstart', $bennu->timestamp_to_datetime($event->timestart)); // when event starts
         if ($event->timeduration > 0) {
             //dtend is better than duration, because it works in Microsoft Outlook and works better in Korganizer
-            $ev->add_property('dtend', Bennu::timestamp_to_datetime($event->timestart + $event->timeduration));
+            $ev->add_property('dtend', $bennu->timestamp_to_datetime($event->timestart + $event->timeduration));
         }
         //Add different event categories (seems to break in Google if you have no category)
         if ($event->courseid != 0 && $event->courseid != SITEID && $shortname) {

@@ -37,7 +37,7 @@ $string['instructions'] = 'You can export your OU personal calendar entries into
 $string['courseinstructs'] = 'What would you like to export?';
 $string['courseinstructs_help'] = 'Exporting the learning materials on your study planner to a
 personal calendar helps you to organise your study by using features provided by Google or other electronic calendars.';
-$string['courseinstructs_link'] = 'http://learn1.open.ac.uk/mod/oucontent/view.php?id=63';
+$string['courseinstructs_link'] = 'http://learn1.open.ac.uk/admin/tool/redirector/redirect.php/23/en/course/format/studyplan/export/export';
 
 $string['whatinstructs'] = 'The export includes entries from your OU personal calendar that have
  come from your module, such as assessment cut-off dates. In addition, you can include:';
@@ -45,7 +45,7 @@ $string['whatinstructs'] = 'The export includes entries from your OU personal ca
 $string['eventsall'] = 'Personal entries from your OU personal calendar';
 $string['eventsall_help'] = 'These are entries in your OU personal calendar that you have created
  yourself. To avoid duplication, don’t tick this box if you have already imported your OU personal calendar into your electronic calendar.';
-$string['eventsall_link'] = 'http://learn1.open.ac.uk/mod/oucontent/view.php?id=63';
+$string['eventsall_link'] = 'http://learn1.open.ac.uk/admin/tool/redirector/redirect.php/23/en/course/format/studyplan/export/export';
 
 $string['exportheading'] = 'Where would you like to export to?';
 
@@ -71,7 +71,7 @@ $string['feed_desc'] = '<strong>Alternatively</strong>, you can create a web fee
 $string['feed_desc_help'] = 'Copy web feed URL';
 $string['feed_desc_help_help'] = 'Clicking on this button will provide you with a URL (a full web
  address) that you can use to subscribe to some web-based calendar applications.';
-$string['feed_desc_help_link'] = 'http://learn1.open.ac.uk/mod/oucontent/view.php?id=63';
+$string['feed_desc_help_link'] = 'http://learn1.open.ac.uk/admin/tool/redirector/redirect.php/23/en/course/format/studyplan/export/export';
 
 $string['submit'] = 'Update links to reflect selection';
 
@@ -85,6 +85,6 @@ $string['eventsactivities_help'] = 'This includes links to documents, forums, wi
  They will appear in the same weeks in which they appear on your study planner. Items that sit
   outside the weeks of the planner will not be exported, and the export may not include all the
   text-only items.';
-$string['eventsactivities_link'] = 'http://learn1.open.ac.uk/mod/oucontent/view.php?id=63';
+$string['eventsactivities_link'] = 'http://learn1.open.ac.uk/admin/tool/redirector/redirect.php/23/en/course/format/studyplan/export/export';
 
 $string['nopersonaleventsexport'] = '<em> Please note: you cannot export peronal events via this website.</em>';

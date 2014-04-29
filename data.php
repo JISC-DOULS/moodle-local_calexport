@@ -39,16 +39,21 @@ $courseid = optional_param('course', 0, PARAM_INT);
 $allevents = optional_param('allevents', true, PARAM_BOOL);
 
 if ($courseid != 0) {
-    $context = get_context_instance(CONTEXT_COURSE, $courseid);
+    $context = context_course::instance($courseid);
 } else {
-    $context = get_context_instance(CONTEXT_SYSTEM);
+    $context = context_system::instance();
 }
 $PAGE->set_context($context);
 
 
 //Do not need to login to use this screen - instead verify parameters sent
-$username = required_param('u', PARAM_TEXT);
-$authtoken = required_param('token', PARAM_ALPHANUM);
+$username = optional_param('u', '', PARAM_TEXT);
+$authtoken = optional_param('token', '', PARAM_ALPHANUM);
+
+if ($username == '' || $authtoken == '') {
+    header('HTTP/1.0 404 not found');
+    die('Incorrect parameters sent in url');
+}
 
 //Fetch user information
 if (!$user = get_complete_user_data('username', $username)) {
@@ -94,9 +99,9 @@ if ($allevents == true) {
     $eventuserid = array();
 }
 
-//Events in the last 10 or next 60 days
+// Events in the last 10 or next 150 days (approx 6 months).
 $timestart = time() - 864000;
-$timeend = time() + 5184000;
+$timeend = time() + 12960000;
 
 $events = calendar_get_events($timestart, $timeend, $eventuserid, $groups, array_keys($courses), false);
 
@@ -133,7 +138,8 @@ $serialized = $ical->serialize();
 if (empty($serialized)) {
     die('bad serialization');
 }
-
+// Remove the line breaks at 75 chars (which are correct but not picked up in cal software).
+$serialized = str_replace("\r\n\t ", '', $serialized);
 //IE compatibility HACK!
 if (ini_get_bool('zlib.output_compression')) {
     ini_set('zlib.output_compression', 'Off');
